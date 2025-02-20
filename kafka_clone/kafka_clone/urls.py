@@ -17,7 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from broker.views import TopicView, MessageView
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('api/topics/', TopicView.as_view()),
+    path('api/messages/', MessageView.as_view()),
 ]
+

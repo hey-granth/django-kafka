@@ -1,6 +1,9 @@
 from django.db import models
 import uuid
 
+class Broker:
+    name = models.CharField(max_length=255)
+
 class Topic(models.Model):
     name = models.CharField(max_length=255, unique=True)
     partitions = models.PositiveIntegerField(default=3)
@@ -16,7 +19,7 @@ class Partition(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     partition_id = models.PositiveIntegerField()
     # leader is the broker that is responsible for handling read and write requests for a partition
-    leader = models.ForeignKey('Broker', on_delete=models.CASCADE)
+    leader = models.ForeignKey(Broker, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('topic', 'partition_id')
@@ -37,3 +40,4 @@ class ConsumerGroup(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     offsets = models.JSONField(default=dict) # {partition_id: offset}
+
