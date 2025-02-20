@@ -15,6 +15,7 @@ class Topic(models.Model):
 class Partition(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     partition_id = models.PositiveIntegerField()
+    # leader is the broker that is responsible for handling read and write requests for a partition
     leader = models.ForeignKey('Broker', on_delete=models.CASCADE)
 
     class Meta:
