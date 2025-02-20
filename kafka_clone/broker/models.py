@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 
-class Broker:
+class Broker(models.Model):
     name = models.CharField(max_length=255)
 
 class Topic(models.Model):
